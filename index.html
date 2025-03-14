@@ -14,6 +14,7 @@
         </div>
 
         <div id="input-section" class="mt-6 hidden">
+            <p id="no-message" class="text-red-500 font-bold hidden"></p>
             <input type="text" id="response-input" class="w-full p-3 border rounded-lg text-black text-base sm:text-lg" placeholder="Type 'Yes' or 'No'">
             <button id="submit-button" onclick="checkResponse()" class="mt-4 px-4 py-2 bg-pink-500 text-white text-base rounded-lg hover:bg-pink-600 transition-all relative">Submit</button>
         </div>
@@ -32,6 +33,7 @@
     </div>
 
     <script>
+        let noClickCount = 0;
         const firstMessage = "Hi Kaycee, there's something special I wanna share with you. Do you want to know the message? (Type 'Yes' or 'No')";
         const confirmationMessage = "Once you say 'yes' there's no going back, Kaycee! Are you sure you want to proceed? (Yes/No)";
         const finalMessage = `Hello Kaycee!!!!\n\nI just want to let you know that I find you attractive and cute...\n\nI've been keeping something to myself for a while............................. and I can’t hold it in any longer.\n\nGuess you've captured my thoughts completely.\n\nAnd............................................!!!!\n\nI like you.\n\nbut............................!!!\n\nI also like your flaws.........\n\nYour imperfections.......\n\nyour personality.......\n\nyour vibe....\n\nyour style...\n\nand most of all your smile!...\n\nbut no pressure!\n\nYou don't need to reciprocate my feelings, Kaycee. I just need to say this for my peace of mind.\n\nDahil nakaka-distract na yung kagandahan mo, Charot HAHAHA\n\n-Joe`;
@@ -54,11 +56,19 @@
         function checkResponse() {
             let response = document.getElementById("response-input").value.trim().toLowerCase();
             let button = document.getElementById("submit-button");
+            let noMessage = document.getElementById("no-message");
             if (response === "yes") {
                 document.getElementById("input-section").classList.add("hidden");
                 document.getElementById("confirmation-section").classList.remove("hidden");
                 typeEffect(confirmationMessage, document.getElementById("confirmation-text"));
             } else if (response === "no") {
+                noClickCount++;
+                if (noClickCount === 2) {
+                    noMessage.innerText = "Yes na kasi";
+                    noMessage.classList.remove("hidden");
+                } else if (noClickCount === 3) {
+                    noMessage.innerText = "Yes mo na, sapilitan na 'to! HAHAHA";
+                }
                 moveButton(button);
             } else {
                 alert("Please type 'Yes' or 'No'!");
