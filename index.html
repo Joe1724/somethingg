@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Message for Kaycee</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-pink-200 text-gray-900 px-4">
+
+    <div class="bg-white shadow-lg rounded-2xl p-6 sm:p-8 max-w-lg w-full text-center">  
+        <!-- Typing effect message -->
+        <div class="text-lg sm:text-2xl font-mono border-l-4 border-pink-500 pl-4 text-left">
+            <span id="typing-text"></span><span class="animate-blink">|</span>
+        </div>
+
+        <!-- First Yes/No Input -->
+        <div id="input-section" class="mt-6 hidden">
+            <input type="text" id="response-input" class="w-full p-3 border rounded-lg text-black text-base sm:text-lg" placeholder="Type 'Yes' or 'No'">
+            <button onclick="checkResponse()" class="mt-4 w-full px-4 py-3 bg-pink-500 text-white text-lg rounded-lg hover:bg-pink-600 transition-all">Submit</button>
+        </div>
+
+        <!-- Confirmation Section -->
+        <div id="confirmation-section" class="mt-6 hidden">
+            <div class="text-lg sm:text-xl font-mono border-l-4 border-red-500 pl-4 text-left">
+                <span id="confirmation-text"></span><span class="animate-blink">|</span>
+            </div>
+            <input type="text" id="confirm-input" class="w-full p-3 border rounded-lg text-black text-base sm:text-lg mt-4" placeholder="Type 'Yes' or 'No'">
+            <button onclick="checkFinalResponse()" class="mt-4 w-full px-4 py-3 bg-red-500 text-white text-lg rounded-lg hover:bg-red-600 transition-all">Submit</button>
+        </div>
+
+        <!-- Final Message -->
+        <div id="message-container" class="mt-8 hidden text-left">
+            <p id="final-text" class="text-lg sm:text-xl font-mono whitespace-pre-line leading-relaxed"></p>
+        </div>
+    </div>
+
+    <script>
+        const firstMessage = "Hi Kaycee, there's something special I wanna share with you. Do you want to know the message? (Type 'Yes' or 'No')";
+        const confirmationMessage = "Once you say 'yes' there's no going back, Kaycee! Are you sure you want to proceed? (Yes/No)";
+
+        const finalMessage = `Hello Kaycee!!!!\n
+I just want to let you know that I find you attractive and cute...\n
+I've been keeping something to myself for a while............................. and I can’t hold it in any longer.\n
+Guess you've captured my thoughts completely.\n
+And............................................!!!!\n
+I like you.\n
+but............................!!!\n
+I also like your flaws.........\n
+Your imperfections.......\n
+your personality.......\n
+your vibe....\n
+your style...\n
+and most of all your smile!...\n
+but no pressure!\n
+You don't need to reciprocate my feelings, Kaycee. I just need to say this for my peace of mind.\n
+Dahil nakaka-distract na yung kagandahan mo, Charot HAHAHA\n
+-Joe`;
+
+        function typeEffect(text, element, callback) {
+            let i = 0;
+            element.innerHTML = "";
+            function typeLetter() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeLetter, 75);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            typeLetter();
+        }
+
+        function checkResponse() {
+            let response = document.getElementById("response-input").value.trim().toLowerCase();
+            if (response === "yes") {
+                document.getElementById("input-section").classList.add("hidden");
+                document.getElementById("confirmation-section").classList.remove("hidden");
+                typeEffect(confirmationMessage, document.getElementById("confirmation-text"));
+            } else if (response === "no") {
+                document.getElementById("typing-text").innerText = "Aww, maybe next time! 😊";
+                document.getElementById("input-section").classList.add("hidden");
+            } else {
+                alert("Please type 'Yes' or 'No'!");
+            }
+        }
+
+        function checkFinalResponse() {
+            let finalResponse = document.getElementById("confirm-input").value.trim().toLowerCase();
+            if (finalResponse === "yes") {
+                document.getElementById("confirmation-section").classList.add("hidden");
+                document.getElementById("message-container").classList.remove("hidden");
+                typeEffect(finalMessage, document.getElementById("final-text"));
+            } else if (finalResponse === "no") {
+                document.getElementById("confirmation-section").classList.add("hidden");
+                document.getElementById("typing-text").innerText = "Maybe next time, Kaycee! 😊";
+            } else {
+                alert("Please type 'Yes' or 'No'!");
+            }
+        }
+
+        typeEffect(firstMessage, document.getElementById("typing-text"), () => {
+            document.getElementById("input-section").classList.remove("hidden");
+        });
+
+    </script>
+
+    <style>
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .animate-blink {
+            animation: blink 0.8s step-end infinite;
+        }
+    </style>
+
+</body>
+</html>
